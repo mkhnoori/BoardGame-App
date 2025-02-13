@@ -41,3 +41,24 @@ spec:
       targetPort: 8080 # Container port that the app is running on
   type: LoadBalancer  # Change to 'NodePort' if running on a local cluster
 
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: boardgame-service-monitor
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: boardgame  # This should match the labels of your service
+  namespaceSelector:
+    matchNames:
+      - default  # Change this to the namespace where your service is running
+  endpoints:
+  - port: http  # This should match the name of the port in the service
+    interval: 30s  # How often Prometheus will scrape metrics
+    path: /metrics  # The metrics path of your app
+    targetPort: 8080  # The container port your app is running on
+
