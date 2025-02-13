@@ -59,6 +59,6 @@ spec:
   endpoints:
   - port: http  # This should match the name of the port in the service
     interval: 30s  # How often Prometheus will scrape metrics
-    path: /metrics  # The metrics path of your app
+    path: /swagger-stats/metrics  # The metrics path of your app
     targetPort: 8080  # The container port your app is running on
 
